@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div >
+        <h2>สิ่งที่สนใจ</h2>
+        <div id="=content">
+
+        </div>
+        <ul><ll>กีฬา</li><ll>ดนตรี</li><ll>อาหาร</li></ul>
+    </div>
+    <input type="checkbox" name="interset" value="กีฬา">กีฬา
+    <input type="checkbox" name="interset" value="ดนตรี">ดนตรี
+    <input type="checkbox" name="interset" value="อาหาร">อาหาร
+    <input type="checkbox" name="interset" value="เทคโนโลยี">เทคโนโลยี
+    <button onclick="SubmitInterrest()">แสดงสิ่งที่สนใจ</button>
+    <script>
+        function SubmitInterrest(){
+            //เลือก checkbox  ทั้งหมด
+            let intersetDOM = document.querySelectorAll('input[name="interset"]');
+            let contentHTML = '<ul>';
+            //เอาค่าออกมาเฉพาะตัวที่เลือก เอาค่า value ออกมาเฉพาะที่เลือกใส่ใน arry
+            for(let i = 0; i < intersetDOM.length; i++){
+                if(intersetDOM[i].checked){
+                    contentHTML += '<ll>' + intersetDOM[i].value + '</li>';
+                }
+            }
+            //วนค่าตัวที่เลือกมาแสดงใส่ html กลับไป
+            contentHTML += '</ul>';
+            console.log(contentHTML);
+        }
+    </script> 
+</body>
+</html>
