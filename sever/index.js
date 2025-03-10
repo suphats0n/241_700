@@ -89,7 +89,7 @@ DELETE /user/:id สำหรับลบ users รายคน (ตาม id �
 
 // path = GET / users สำหรับ get users ทั้งหมดที่บันทึกไว้
 app.get('/user', async (req, res) => {
-  const result = await conn.query('SELECT * FROM user')
+  const result = await conn.query('SELECT * FROM users')
     res.json(result[0])
 })
 
@@ -145,4 +145,50 @@ app.get('/user/:id', async (req, res) => {
    
 
 
- // path = PUT /user/:id สำหรับดึง users
+ // path = PUT /user/:id สำหรับดึง users รายคน (ตาม id ที่บันทึกเข้าไป)
+ app.put('/user/:id',async (req, res) => {
+  try {
+    let id = req.params.id;
+    let updateUser = req.body;
+    const results = await conn.query
+    ('UPDATE user SET? WHERE id = ?',
+       [updateUser, id]
+      )
+    res.json({
+      message: 'Create user successfully',
+      data: results[0]
+   })
+  }catch (error) {
+    console.log('error', error.message)
+    res.status(500).json({
+      message:'something went wrong',
+      errorMessage: error.message
+    })
+  }
+})
+
+
+
+ //path = DELETE /users/:id สำหรับลบ users รายคน (ตาม id ที่บันทึกเข้าไป)
+ app.delete('/user/:id', async (req, res) => {
+  try {
+    let id = req.params.id;
+    const results = await conn.query(
+      'DELETE from users WHERE id = ?', id)
+    res.json({
+      message: 'Delete user successfully',
+      data: results[0]
+   })
+  } catch (error) {
+    console.log('error', error.message)  
+    res.status(500).json({
+      message: 'something went wrong',
+      errorMessage: error.message  
+     })
+   }
+});
+
+app.listen(port, async (req, res) => {  
+  await initMySQL()
+  console.log('Http Server is running on port ' + port);
+});
