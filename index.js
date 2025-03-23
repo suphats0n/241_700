@@ -26,7 +26,7 @@ window.onload = async() => {
 
             firstNameDOM.value = user.firstName;
             lastNameDOM.value = user.lastName;
-            ageDOM.value = user.age
+            ageDOM.value = user.age;
             descriptionDOM.value = user.description;
 
             let genderDOMs = document.querySelectorAll('input[name=gender]');
@@ -91,7 +91,7 @@ const submitData = async () => {
             age: ageDOM.value,
             gender: genderDOM.value,
             interests: interest,
-            description: descriptionDOM.value
+            description: descriptionDOM.value,
         };
 
         console.log("submitData", userData);

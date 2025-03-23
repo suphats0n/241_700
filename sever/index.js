@@ -18,7 +18,7 @@ const initMySQL = async () => {
     user: 'root',
     password: 'root',
     database: 'webdb',
-    port: 8830
+    port: 8830,
   })
 }
 const validateData = (userData) => {
