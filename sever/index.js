@@ -6,10 +6,9 @@ const app = express();
 
 const port = 8000;
 app.use(bodyParser.json());
-
 app.use(cors());
 
-let users = []
+let user = []
 let conn = null
 
 const initMySQL = async () => {
@@ -18,7 +17,7 @@ const initMySQL = async () => {
     user: 'root',
     password: 'root',
     database: 'webdb',
-    port: 8830,
+    port: 8830
   })
 }
 const validateData = (userData) => {
@@ -97,8 +96,8 @@ app.get('/user', async (req, res) => {
 app.post('/user', async (req, res) => {
  
   try {
-    let user = req.body;
-    const errors = validateData(user)
+    let users = req.body;
+    const errors = validateData(users)
     if (errors.length > 0) {
       //มี error
       throw {
@@ -106,7 +105,7 @@ app.post('/user', async (req, res) => {
           errors: errors
       }
     }
-    const results = await conn.query('INSERT INTO user SET ?', user)
+    const results = await conn.query('INSERT INTO users SET ?', users)
     res.json({
       message: 'Create user successfully',
       data: results[0]
@@ -128,7 +127,7 @@ app.post('/user', async (req, res) => {
 app.get('/user/:id', async (req, res) => {
   try {
   let id = req.params.id;
-  const result = await conn.query('SELECT * FROM user WHERE id = ?', id)
+  const result = await conn.query('SELECT * FROM users WHERE id = ?', id)
   if (result[0].length == 0) {
     throw { statuscode: 404, message: 'User not found' }
     }
@@ -149,10 +148,10 @@ app.get('/user/:id', async (req, res) => {
  app.put('/user/:id',async (req, res) => {
   try {
     let id = req.params.id;
-    let updateUser = req.body;
+    let updateUsers = req.body;
     const results = await conn.query
-    ('UPDATE user SET? WHERE id = ?',
-       [updateUser, id]
+    ('UPDATE users SET? WHERE id = ?',
+       [updateUsers, id]
       )
     res.json({
       message: 'Create user successfully',

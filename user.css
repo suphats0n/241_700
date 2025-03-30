@@ -1,70 +1,81 @@
-.table-container {
-    width: 100%;
-    overflow-x: auto; /* ทำให้ตารางเลื่อนได้ในหน้าจอเล็ก */
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: sans-serif;
-  }
-  
-  th, td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  th {
-    background-color:rgb(168, 21, 221);
-    font-weight: 600;
-  }
-  
-  tr:nth-child(even) {
-    background-color: rgb(168, 21, 221);
-  }
-  
-  tr:hover {
-    background-color: #f0f0f0;
-  }
-  
-  img {
-    max-width: 50px;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-  }
-  
-  .status {
-    padding: 5px 10px;
-    border-radius: 15px;
-    font-size: 12px;
-    text-transform: uppercase;
-  }
-  
-  .status.active {
-    background-color: #e0f7e8;
-    color: #4caf50;
-  }
-  
-  .status.deactive {
-    background-color: rgb(168, 21, 221);
-    color: #f44336;
-  }
-  
-  button {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  button.delete {
-    background-color: #f44336;
-    color: white;
-  }
-  
-  button.edit {
-    background-color: #4caf50;
-    color: white;
-  }
+/* Font Family */
+@font-face {
+  font-family: 'Kanit';
+  src: url('./Kanit/Kanit-Regular.ttf');
+}
+
+/* Body Styles */
+body {
+  font-family: 'Kanit';
+  background-color: #D8BFD8; /* สีพื้นหลังเว็บไซต์ */
+}
+.header-back {
+  text-align: center;
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  background-color: #f9f9f9; /* สีพื้นหลังตารางสีอ่อน */
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: center;
+  border: 1px solid #DDA0DD; /* สีขอบเป็นสีม่วงอ่อน */
+}
+
+th {
+  background-color: #8A2BE2; /* สีม่วงเข้มสำหรับหัวข้อ */
+  color: white;
+  font-weight: bold;
+}
+
+td {
+  font-size: 18px;
+  color: #8A2BE2; /* สีข้อความในเซลล์เป็นสีม่วง */
+}
+
+/* ปรับแต่งปุ่มแบบบาง ๆ */
+td button {
+  padding: 8px 16px;
+  border: 1px solid #8A2BE2; /* ขอบบาง ๆ ของปุ่ม */
+  border-radius: 25px; /* ขอบปุ่มโค้งมน */
+  background-color: transparent; /* พื้นหลังโปร่งใส */
+  color: #8A2BE2; /* ข้อความสีม่วง */
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  display: inline-block;
+  width: auto; /* ทำให้ขนาดปุ่มพอดีกับข้อความ */
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+td button:hover {
+  background-color: #8A2BE2; /* สีพื้นหลังเป็นม่วงเข้มเมื่อโฮเวอร์ */
+  color: white; /* เปลี่ยนข้อความเป็นสีขาว */
+  transform: scale(1.05); /* ขยายขนาดปุ่มเล็กน้อยเมื่อโฮเวอร์ */
+}
+
+td .btn-edit {
+  border-color: #8A2BE2; /* ขอบสีม่วงสำหรับปุ่ม Edit */
+}
+
+td .btn-edit:hover {
+  background-color: #7A1DCC; /* สีม่วงเข้มเมื่อเมาส์วาง */
+}
+
+td .btn-delete {
+  border-color: #DDA0DD; /* ขอบสีม่วงอ่อนสำหรับปุ่ม Delete */
+  color: #DDA0DD; /* ข้อความสีม่วงอ่อน */
+}
+
+td .btn-delete:hover {
+  background-color: #9370DB; /* สีม่วงเข้มเมื่อเมาส์วาง */
+  color: white; /* เปลี่ยนข้อความเป็นสีขาว */
+}

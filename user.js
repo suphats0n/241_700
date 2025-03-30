@@ -1,42 +1,58 @@
-const BASE_URL = 'http://localhost:8000'
+const BASE_URL = 'http://localhost:8000';
+
 window.onload = async () => {
-    await lodeData()
-}
-const lodeData = async () => {
-    console.log('user page loaded')
-    // 1. load user ทั้งหมด จาก api ที่เตรียมไว้
-    const response = await axios.get(`${BASE_URL}/user`)
+    await loadData();
+};
 
-    console.log(response.data)
+const loadData = async () => {
+    console.log('User page loaded');
+    try {
+        // 1. Load users from the API
+        const response = await axios.get(`${BASE_URL}/user`);
+        console.log(response.data);
 
+        const userDOM = document.getElementById('user');
+        let htmlData = '';
 
-    const userDOM = document.getElementById('user')
-    // 2. นำ user ทั้งหมด โหลดกลับเข้าไปใน html แสดงเข้าไปที่ html
-    
-    let htmlData = '<div>'
-    for (let i = 0; i < response.data.length; i++) {
-        let user = response.data[i]
-        htmlData += `<div>
-        ${user.id} ${user.firstname} ${user.lastname}
-        <a href='index.html?id=${user.id}'> <button>Edit</button></a>
-        <button class = 'delete' data-id = '${user.id}'>Delete</button>
-    </div>`
+        // 2. Loop through each user and display in table rows
+        for (let i = 0; i < response.data.length; i++) {
+            let user = response.data[i];
+            htmlData += `
+                <tr>
+                    <td>${user.id}</td>
+                    <td>${user.firstname}</td>
+                    <td>${user.lastname}</td>
+                    <td>${user.age}</td>
+                    <td>${user.gender}</td>
+                    <td>${user.interests}</td>
+                    <td>${user.description}</td>
+                    <td>
+                        <a href="index.html?id=${user.id}"><button>Edit</button></a>
+                        <button class="delete" data-id="${user.id}">Delete</button>
+                    </td>
+                </tr>
+            `;
+        }
+
+        userDOM.innerHTML = htmlData;
+
+        // 3. Add event listener to delete buttons
+        const deleteDOMs = document.getElementsByClassName('delete');
+        for (let i = 0; i < deleteDOMs.length; i++) {
+            deleteDOMs[i].addEventListener('click', async (event) => {
+                const id = event.target.dataset.id;
+                try {
+                    await axios.delete(`${BASE_URL}/user/${id}`);
+                    loadData(); // Reload data after deletion
+                } catch (error) {
+                    console.error('Error deleting user:', error);
+                }
+            });
+        }
+    } catch (error) {
+        console.error('Error loading users:', error);
+        const errorMessage = document.getElementById('error-message');
+        errorMessage.style.display = 'block';
+        errorMessage.innerText = 'There was an error loading the users. Please try again later.';
     }
-    htmlData += '</div>'
-    userDOM.innerHTML = htmlData
-
-    // 3. delete user
-    const deleteDOMs = document.getElementsByClassName('delete')
-    for (let i = 0; i < deleteDOMs.length; i++) {
-        deleteDOMs[i].addEventListener('click', async (event) => {
-            // ดึง id ของ user ที่ต้องการลบ
-            const id = event.target.dataset.id
-            try {
-                await axios.delete(`${BASE_URL}/user/${id}`)
-                lodeData()
-            } catch (error) {
-                console.error('error',error)
-            }
-        })
-    }
-}
+};
